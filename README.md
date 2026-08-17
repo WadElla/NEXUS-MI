@@ -18,20 +18,13 @@ During the gateway-coordinated phase, each subject-side gateway retains raw EEG,
 
 ## System overview
 
-```mermaid
-flowchart LR
-    W[EEG wearable] -->|short-range EEG stream| G[Subject-side gateway]
-    G --> L[Local inference]
-    G --> H[Session-2 head personalization]
-    G --> B[Pending-update buffer]
-    G -->|backbone delta + base-version metadata| E[Edge coordinator]
-    E --> S[Policy-controlled scheduling]
-    S --> A[Checkpoint/staleness admission]
-    A --> F[Shared-backbone aggregation]
-    F -->|refreshed backbone| G
-```
+![NEXUS-MI system architecture](docs/assets/nexus_mi_system_architecture.svg)
 
-Raw EEG, calibration labels, and personalized classifier heads remain gateway-local during the gateway-coordinated phase. The experiments instantiate this deployment workflow by replaying the public session-based datasets offline.
+NEXUS-MI follows a three-tier wearable–gateway–edge architecture. The wearable acquires MI-EEG and streams it over a short-range local link to the subject-side gateway. The gateway performs EEG preprocessing, local inference, Session-1 local learning, limited-calibration classifier-head personalization, local data storage, gateway-link monitoring, and update buffering. Raw EEG, calibration labels, and personalized classifier heads remain local to the gateway during the gateway-coordinated phase.
+
+Only backbone deltas and their base-version metadata are synchronized with the edge coordinator. The coordinator manages policy-controlled gateway scheduling, checkpoint- and staleness-aware upload admission, accepted-update reconstruction and aggregation, backbone checkpoint/version tracking, and policy-controlled backbone distribution.
+
+The architecture represents the intended deployment workflow. The experiments instantiate it through offline replay of public session-based MI-EEG datasets rather than a live online deployment. Session 1 supports collaborative backbone learning and retention of each subject's classifier-head state, while Session 2 performs limited-calibration head personalization followed by held-out evaluation. SB-PH uses common initialization, whereas EIB-PH additionally uses pooled Session-1 data for predeployment backbone initialization before following the same gateway-coordinated learning and personalization pipeline.
 
 ## Installation
 
