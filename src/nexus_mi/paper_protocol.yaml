@@ -1,0 +1,102 @@
+# NEXUS-MI study protocol used by the experiment presets.
+# `nexus-mi run ...` reads this configuration.
+
+dataset_defaults:
+  bciciv2a:
+    dataset_id: 0
+    subjects: 9
+    classes: 4
+    channels: 22
+    eeg_channel_indices_zero_based: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+    session2_calibration_pool_trials: 144
+    session2_test_trials: 144
+    max_selected_per_round: 6
+  openbmi:
+    dataset_id: 1
+    subjects: 54
+    classes: 2
+    channels: 20
+    eeg_channel_indices_zero_based: [7, 32, 8, 9, 33, 10, 34, 12, 35, 13, 36, 14, 37, 17, 38, 18, 39, 19, 40, 20]
+    session2_calibration_pool_trials: 80
+    session2_test_trials: 120
+    max_selected_per_round: 40
+
+model:
+  name: eegNet
+  sampling_hz: 250
+  epoch_seconds: 4
+  n_time: 1000
+  F1: 8
+  D: 2
+  F2: 16
+  C1: 125
+  dropout: 0.5
+
+embedding_pretrain:
+  learning_rate: 0.001
+  max_epochs: 1500
+  patience: 200
+  best_metric: val_acc
+  session1_validation_ratio: 0.20
+
+federated_training:
+  rounds: 120
+  local_epochs: 50
+  optimizer: Adam
+  learning_rate: 0.001
+  batch_size: 16
+  aggregation: uniform_update_instance
+
+session2:
+  split_policy: chronological
+  fixed_test_trials_argument: 0
+  repeats: 1
+
+personalization:
+  calibration_trials_per_class: [15, 20, 30]
+  learning_rate: 0.00005
+  max_epochs: 750
+  patience: 100
+  trainable_parameters: classifier_head_only
+
+ideal_link:
+  communication_profile: uniform
+  online_probability: 1.0
+  max_selected_per_round: 0
+  buffer_policy: none
+  buffer_max_size: 1
+
+communication:
+  profile: hetero
+  availability_probabilities:
+    high: 0.95
+    moderate: 0.70
+    low: 0.40
+  availability_group_fractions:
+    high: 0.34
+    moderate: 0.33
+    low: 0.33
+  buffer_max_size: 3
+  stale_threshold_versions: 2
+  checkpoint_retention_margin_versions: 5
+  download_threshold_versions: 1
+  sensitivity_profiles:
+    mild: {high: 0.98, moderate: 0.85, low: 0.60}
+    default: {high: 0.95, moderate: 0.70, low: 0.40}
+    severe: {high: 0.90, moderate: 0.50, low: 0.20}
+
+analysis:
+  reliability_threshold_pct:
+    bciciv2a: 60.0
+    openbmi: 70.0
+
+robustness:
+  replicates: 5
+  model_seeds: [2026, 2027, 2028, 2029, 2030]
+  availability_trace_seeds: [12026, 12027, 12028, 12029, 12030]
+  scheduler_tie_break_seeds: [22026, 22027, 22028, 22029, 22030]
+  gateway_group_seed: 2026
+  bootstrap_samples: 10000
+  bootstrap_seed: 2026
+
+primary_seed: 2026

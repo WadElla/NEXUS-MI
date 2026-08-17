@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nexus-mi"
+version = "1.0.0"
+description = "Communication-aware federated personalization for gateway-coordinated motor-imagery BCI"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE", "THIRD_PARTY_NOTICES.md"]
+authors = [{name="Daniel Adu Worae"}, {name="Aarthy Nagarajan"}]
+dependencies = [
+  "numpy>=1.24,<3",
+  "scipy>=1.10,<2",
+  "torch>=2.1",
+  "PyYAML>=6",
+  "mne>=1.5",
+  "resampy>=0.4",
+  "matplotlib>=3.7"
+]
+
+[project.urls]
+Repository = "https://github.com/WadElla/NEXUS-MI"
+
+[project.scripts]
+nexus-mi = "nexus_mi.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.setuptools.package-data]
+nexus_mi = ["paper_protocol.yaml"]
+

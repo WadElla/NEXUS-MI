@@ -1,0 +1,9 @@
+name: nexus-mi
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      # Install this checkout and the dependencies declared in pyproject.toml.
+      - -e .

@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+
+# IDE / OS
+.DS_Store
+__MACOSX/
+.vscode/
+.idea/
+
+# EEG data: never commit downloaded or processed recordings
+data/bciciv2a/
+data/openbmi/
+*.gdf
+A??T.mat
+A??E.mat
+*_EEG_MI.mat
+*.dat
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.ckpt
+
+# Generated experiment artifacts
+outputs/*
+!outputs/.gitkeep
+*.pth
+*.pt
+
+# Local scratch
+*.log
+.tmp/

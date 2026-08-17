@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use NEXUS-MI, please cite the software and the accompanying paper."
+title: "NEXUS-MI: Communication-Aware Federated Personalization for Gateway-Coordinated Motor-Imagery Brain-Computer Interfaces"
+type: software
+version: 1.0.0
+license: MIT
+authors:
+  - family-names: Worae
+    given-names: Daniel Adu
+  - family-names: Nagarajan
+    given-names: Aarthy
+repository-code: "https://github.com/WadElla/NEXUS-MI"
+abstract: "Code and reproducibility package for NEXUS-MI."
