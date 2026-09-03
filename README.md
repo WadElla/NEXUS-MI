@@ -2,7 +2,7 @@
 
 **Communication-Aware Federated Personalization for Gateway-Coordinated Motor-Imagery Brain-Computer Interfaces**
 
-[![DOI](https://zenodo.org/badge/1336718447.svg)](https://doi.org/10.5281/zenodo.22074301)
+<!-- [![DOI](https://zenodo.org/badge/1336718447.svg)](https://doi.org/10.5281/zenodo.22074301) -->
 
 NEXUS-MI is a deployment-centered federated personalization framework for motor-imagery BCI that addresses a gap largely overlooked in existing federated MI-BCI studies: the effect of imperfect gateway coordination on the personalized decoder ultimately used by each subject. Federated learning enables collaborative model adaptation without centralizing raw EEG, but most prior MI-BCI studies assume regular synchronization and do not examine how intermittent gateway availability, delayed or stale updates, buffering, participant selection, and backbone distribution interact with personalization. NEXUS-MI makes these coordination decisions part of the learning system itself and evaluates how they affect both subject-level decoding performance and communication cost under heterogeneous links.
 
